@@ -36,7 +36,6 @@ const Button = styled.button`
     font-size: 21px;
     color: white;
     margin-bottom: 25px;
-    cursor: pointer;
 `;
 
 const Span = styled.span`

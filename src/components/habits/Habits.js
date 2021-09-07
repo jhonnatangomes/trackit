@@ -14,7 +14,7 @@ import CreateHabit from "./CreateHabit";
 
 export default function Habits() {
     const habits = api.getHabits();
-    const [createHabit, setCreateHabit] = useState(true);
+    const [createHabit, setCreateHabit] = useState(false);
     const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
     return (
         <>
@@ -22,7 +22,7 @@ export default function Habits() {
             <Main>
                 <TitleContainer>
                     <MyHabits>Meus hábitos</MyHabits>
-                    <PlusButton>+</PlusButton>
+                    <PlusButton onClick={() => setCreateHabit(!createHabit)}>+</PlusButton>
                 </TitleContainer>
                 {createHabit ? <CreateHabit weekdays={weekdays}/> : ""}
                 {habits.length ? (

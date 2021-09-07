@@ -37,6 +37,10 @@ body {
     font-family: 'Lexend Deca', sans-serif;
 	background: #f2f2f2;
 }
+button {
+	font-family: 'Lexend Deca', 'sans-serif';
+	cursor: pointer;
+}
 ol, ul {
 	list-style: none;
 }
