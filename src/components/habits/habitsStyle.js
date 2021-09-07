@@ -1,19 +1,14 @@
 import styled from "styled-components";
 
-const Main = styled.main`
-    margin-top: 70px;
-    margin-bottom: 80px;
-    padding: 22px 18px;
-`;
-
 const TitleContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 `;
 
 const MyHabits = styled.span`
     font-size: 23px;
+    line-height: 29px;
     color: #126ba5;
 `;
 
@@ -39,6 +34,7 @@ const HabitStyle = styled.div`
     height: 91px;
     background: white;
     font-size: 20px;
+    border-radius: 5px;
     color: #666666;
     padding: 13px 0 15px 14px;
     position: relative;
@@ -53,6 +49,13 @@ const HabitStyle = styled.div`
 
     &:not(:last-child) {
         margin-bottom: 10px;
+    }
+
+    img {
+        position: absolute;
+        right: 10px;
+        top: 11px;
+        cursor: pointer;
     }
 `;
 
@@ -82,6 +85,7 @@ const CreateHabitStyle = styled.div`
     width: 100%;
     height: 180px;
     background: white;
+    border-radius: 5px;
     padding: 18px 18px 15px 19px;
     margin: 20px 0;
     position: relative;
@@ -129,7 +133,6 @@ const CreateHabitStyle = styled.div`
 `;
 
 export {
-    Main,
     MyHabits,
     TitleContainer,
     PlusButton,

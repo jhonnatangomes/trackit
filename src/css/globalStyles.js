@@ -41,6 +41,11 @@ button {
 	font-family: 'Lexend Deca', 'sans-serif';
 	cursor: pointer;
 }
+main {
+	margin-top: 70px;
+    margin-bottom: 80px;
+    padding: 28px 18px;
+}
 ol, ul {
 	list-style: none;
 }

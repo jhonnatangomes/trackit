@@ -12,10 +12,11 @@ const FooterStyle = styled.footer`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 18px;
+    line-height: 22px;
 `
 
 const Span = styled.span`
-    font-size: 18px;
     color: #52b6ff;
 `
 
@@ -26,7 +27,6 @@ const Circle = styled.div`
     border-radius: 50%;
     margin-bottom: 40px;
     color: white;
-    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;

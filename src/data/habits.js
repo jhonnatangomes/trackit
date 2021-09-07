@@ -11,5 +11,31 @@ let habits = [
     }
 ];
 
+let habitsToday = [
+    {
+        "id": 1,
+        "name": "Ler 1 capítulo de livro",
+        "done": true,
+        "currentSequence": 3,
+        "highestSequence": 5
+    },
+    {
+        "id": 2,
+        "name": "Ler 1 capítulo de livro",
+        "done": true,
+        "currentSequence": 3,
+        "highestSequence": 3
+    },
+    {
+        "id": 3,
+        "name": "Ler 1 capítulo de livro",
+        "done": false,
+        "currentSequence": 1,
+        "highestSequence": 5
+    },
+];
 
-export default habits;
+export {
+    habits,
+    habitsToday
+};

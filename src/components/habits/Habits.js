@@ -1,7 +1,6 @@
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import {
-    Main,
     MyHabits,
     TitleContainer,
     PlusButton,
@@ -19,7 +18,7 @@ export default function Habits() {
     return (
         <>
             <Header />
-            <Main>
+            <main>
                 <TitleContainer>
                     <MyHabits>Meus hábitos</MyHabits>
                     <PlusButton onClick={() => setCreateHabit(!createHabit)}>+</PlusButton>
@@ -40,7 +39,7 @@ export default function Habits() {
                         hábito para começar a trackear!
                     </NoHabitsYet>
                 )}
-            </Main>
+            </main>
             <Footer />
         </>
     );

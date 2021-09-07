@@ -1,4 +1,5 @@
 import { HabitStyle, Days, Day } from "./habitsStyle";
+import deleteButton from "../../assets/delete.png";
 
 export default function Habit({days, name, weekdays}) {
     return (
@@ -11,6 +12,7 @@ export default function Habit({days, name, weekdays}) {
                     </Day>
                 ))}
             </Days>
+            <img src={deleteButton} alt=""/>
         </HabitStyle>
     );
 }
