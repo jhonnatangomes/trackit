@@ -18,6 +18,7 @@ const FooterStyle = styled.footer`
 
 const Span = styled.span`
     color: #52b6ff;
+    cursor: pointer;
 `
 
 const Circle = styled.div`
@@ -30,6 +31,7 @@ const Circle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `
 
 export {

@@ -7,7 +7,7 @@ export default function Habit({days, name, weekdays}) {
             <p>{name}</p>
             <Days>
                 {weekdays.map((weekday, i) => (
-                    <Day days={days} id={i + 1} key={i}>
+                    <Day days={days} id={i} key={i}>
                         {weekday}
                     </Day>
                 ))}
