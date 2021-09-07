@@ -8,7 +8,8 @@ let habits = [
         id: 2,
         name: "Nome do hábito 2",
         days: [1, 3, 4, 6],
-    },
+    }
 ];
+
 
 export default habits;

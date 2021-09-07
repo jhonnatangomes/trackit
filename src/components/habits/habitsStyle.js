@@ -10,7 +10,6 @@ const TitleContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 28px;
 `;
 
 const MyHabits = styled.span`
@@ -28,9 +27,10 @@ const PlusButton = styled.button`
     border: none;
 `;
 
-const NoHabitsYet = styled.span`
+const NoHabitsYet = styled.p`
     font-size: 18px;
     line-height: 22px;
+    margin-top: 28px;
     color: #666666;
 `;
 
@@ -47,6 +47,10 @@ const HabitStyle = styled.div`
         margin-bottom: 8px;
     }
 
+    &:nth-child(2) {
+        margin-top: 20px;
+    }
+
     &:not(:last-child) {
         margin-bottom: 10px;
     }
@@ -58,19 +62,80 @@ const Days = styled.div`
     div:not(:last-child) {
         margin-right: 4px;
     }
-`
+`;
 
 const Day = styled.div`
     width: 30px;
     height: 30px;
-    border: 1px solid ${({days, id}) =>  days.includes(id) ? "#cfcfcf" : "#d5d5d5"};
-    background: ${ ({days, id}) =>  days.includes(id) ? "#cfcfcf" : "white"};
+    border: 1px solid
+        ${({ days, id }) => (days.includes(id) ? "#cfcfcf" : "#d5d5d5")};
+    background: ${({ days, id }) => (days.includes(id) ? "#cfcfcf" : "white")};
     border-radius: 5px;
     font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${ ({days, id}) =>  days.includes(id) ? "white" : "#dbdbdb"};
-`
+    color: ${({ days, id }) => (days.includes(id) ? "white" : "#dbdbdb")};
+`;
 
-export { Main, MyHabits, TitleContainer, PlusButton, NoHabitsYet, HabitStyle, Days, Day };
+const CreateHabitStyle = styled.div`
+    width: 100%;
+    height: 180px;
+    background: white;
+    padding: 18px 18px 15px 19px;
+    margin: 20px 0;
+    position: relative;
+
+    input {
+        border: 1px solid #d5d5d5;
+        border-radius: 5px;
+        font-size: 20px;
+        outline: none;
+        width: 100%;
+        height: 45px;
+        padding-left: 11px;
+        margin-bottom: 8px;
+    }
+
+    input::placeholder {
+        font-family: "Lexend Deca", sans-serif;
+        color: #dbdbdb;
+    }
+
+    button:nth-child(3) {
+        position: absolute;
+        bottom: 23px;
+        right: 123px;
+        width: 69px;
+        height: 20px;
+        font-size: 16px;
+        color: #52b6ff;
+        background: white;
+        border: none;
+    }
+
+    button:last-child {
+        position: absolute;
+        bottom: 15px;
+        right: 16px;
+        width: 84px;
+        height: 35px;
+        background: #52b6ff;
+        border-radius: 4.63px;
+        border: none;
+        color: white;
+        font-size: 16px;
+    }
+`;
+
+export {
+    Main,
+    MyHabits,
+    TitleContainer,
+    PlusButton,
+    NoHabitsYet,
+    HabitStyle,
+    Days,
+    Day,
+    CreateHabitStyle,
+};

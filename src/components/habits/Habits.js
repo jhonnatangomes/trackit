@@ -9,10 +9,13 @@ import {
 } from "./habitsStyle";
 import Habit from "./Habit";
 import api from "../../api/api";
+import { useState } from "react";
+import CreateHabit from "./CreateHabit";
 
 export default function Habits() {
     const habits = api.getHabits();
-    
+    const [createHabit, setCreateHabit] = useState(true);
+    const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
     return (
         <>
             <Header />
@@ -21,8 +24,16 @@ export default function Habits() {
                     <MyHabits>Meus hábitos</MyHabits>
                     <PlusButton>+</PlusButton>
                 </TitleContainer>
+                {createHabit ? <CreateHabit weekdays={weekdays}/> : ""}
                 {habits.length ? (
-                    habits.map(habit => <Habit days={habit.days} key={habit.id} name={habit.name}/>)
+                    habits.map((habit) => (
+                        <Habit
+                            days={habit.days}
+                            key={habit.id}
+                            name={habit.name}
+                            weekdays={weekdays}
+                        />
+                    ))
                 ) : (
                     <NoHabitsYet>
                         Você não tem nenhum hábito cadastrado ainda. Adicione um

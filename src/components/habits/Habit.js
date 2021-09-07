@@ -1,8 +1,6 @@
 import { HabitStyle, Days, Day } from "./habitsStyle";
 
-export default function Habit({days, name}) {
-    const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
-
+export default function Habit({days, name, weekdays}) {
     return (
         <HabitStyle>
             <p>{name}</p>
