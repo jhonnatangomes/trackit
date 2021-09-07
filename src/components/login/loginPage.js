@@ -4,7 +4,9 @@ const LoginPage = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 68px;
+    padding-top: 68px;
+    height: 100vh;
+    background: white;
 `;
 
 const Input = styled.input`
@@ -44,5 +46,6 @@ const Span = styled.span`
     color: #52B6FF;
     cursor: pointer;
 `
+
 
 export { LoginPage, Input, Button, Span };

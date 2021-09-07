@@ -15,20 +15,27 @@ let habitsToday = [
     {
         "id": 1,
         "name": "Ler 1 capítulo de livro",
-        "done": true,
+        "done": false,
         "currentSequence": 3,
         "highestSequence": 5
     },
     {
         "id": 2,
-        "name": "Ler 1 capítulo de livro",
-        "done": true,
+        "name": "Fazer abdominais",
+        "done": false,
         "currentSequence": 3,
         "highestSequence": 3
     },
     {
         "id": 3,
         "name": "Ler 1 capítulo de livro",
+        "done": false,
+        "currentSequence": 1,
+        "highestSequence": 5
+    },
+    {
+        "id": 4,
+        "name": "Comer abacate",
         "done": false,
         "currentSequence": 1,
         "highestSequence": 5

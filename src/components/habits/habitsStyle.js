@@ -4,6 +4,7 @@ const TitleContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    height: 29px;
 `;
 
 const MyHabits = styled.span`
@@ -20,6 +21,9 @@ const PlusButton = styled.button`
     color: white;
     font-size: 27px;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const NoHabitsYet = styled.p`

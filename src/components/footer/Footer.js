@@ -10,7 +10,9 @@ export default function Footer() {
             <Link to="/hoje">
                 <Circle>Hoje</Circle>
             </Link>
-            <Span>Histórico</Span>
+            <Link to="/historico">
+                <Span>Histórico</Span>
+            </Link>
         </FooterStyle>
     );
 }
