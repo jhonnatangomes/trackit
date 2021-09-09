@@ -16,6 +16,8 @@ import axios from "axios";
 export default function Habits() {
     const login = useContext(LoginContext);
     const [habits, setHabits] = useState([]);
+    const [createHabit, setCreateHabit] = useState(false);
+    const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
     useEffect(() => {
         const config = {
@@ -31,8 +33,7 @@ export default function Habits() {
             )
             .then((res) => setHabits(res.data));
     }, []);
-    const [createHabit, setCreateHabit] = useState(false);
-    const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
+
     return (
         <>
             <Header />
@@ -43,7 +44,16 @@ export default function Habits() {
                         +
                     </PlusButton>
                 </TitleContainer>
-                {createHabit ? <CreateHabit weekdays={weekdays} /> : ""}
+                {createHabit ? (
+                    <CreateHabit
+                        weekdays={weekdays}
+                        setCreateHabit={setCreateHabit}
+                        habits={habits}
+                        setHabits={setHabits}
+                    />
+                ) : (
+                    ""
+                )}
                 {habits.length ? (
                     habits.map((habit) => (
                         <Habit

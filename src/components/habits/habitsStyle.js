@@ -83,6 +83,7 @@ const Day = styled.div`
     justify-content: center;
     align-items: center;
     color: ${({ days, id }) => (days.includes(id) ? "white" : "#dbdbdb")};
+    cursor: pointer;
 `;
 
 const CreateHabitStyle = styled.div`
