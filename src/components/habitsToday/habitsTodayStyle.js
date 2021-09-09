@@ -14,7 +14,6 @@ const PercentageDoneHabits = styled.span`
 
 const HabitStyle = styled.div`
     width: 100%;
-    height: 94px;
     background: white;
     padding: 13px 13px 12px 15px;
     display: flex;
@@ -27,7 +26,7 @@ const HabitStyle = styled.div`
     &:not(:last-child) {
         margin-bottom: 10px;
     }
-`
+`;
 
 const HabitInformation = styled.div`
     display: flex;
@@ -45,17 +44,30 @@ const HabitInformation = styled.div`
         line-height: 16px;
         color: #666666;
     }
-`
+`;
+
+const ContainerDoneButton = styled.div`
+    display: flex;
+    max-height: 100%;
+    align-items: center;
+`;
 
 const DoneButton = styled.button`
-    width: 69px;
+    min-width: 69px;
     height: 69px;
-    background: ${({done}) => done ? "#8fc549" : "#ebebeb"};
-    border: ${({done}) => done ? "none" : "1px solid #e7e7e7"};
+    background: ${({ done }) => (done ? "#8fc549" : "#ebebeb")};
+    border: ${({ done }) => (done ? "none" : "1px solid #e7e7e7")};
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-`
+`;
 
-export { Day, PercentageDoneHabits, HabitStyle, HabitInformation, DoneButton };
+export {
+    Day,
+    PercentageDoneHabits,
+    HabitStyle,
+    HabitInformation,
+    DoneButton,
+    ContainerDoneButton,
+};
