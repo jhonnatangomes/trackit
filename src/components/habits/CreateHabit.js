@@ -14,8 +14,6 @@ export default function CreateHabit({
     days,
     setDays,
 }) {
-    // const [habitName, setHabitName] = useState("");
-    // const [days, setDays] = useState([]);
     const login = useContext(LoginContext);
     const [disabled, setDisabled] = useState(false);
 
