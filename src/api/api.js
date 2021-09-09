@@ -1,13 +1,26 @@
-import {habits, habitsToday} from "../data/habits";
+import { habits, habitsToday } from "../data/habits";
+import axios from "axios";
+const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit";
 
-function getHabits(){
+function getHabits() {
     return habits;
 }
 
-function getHabitsToday(){
+function getHabitsToday() {
     return habitsToday;
 }
 
-const exportedObject = {getHabits, getHabitsToday};
+function signUp(body) {
+    axios.post(`${URL_API}/auth/sign-up`, body);
+}
 
-export default exportedObject;
+function signIn(body, setLogin) {
+    axios.post(`${URL_API}/auth/login`, body).then((res) => {
+        setLogin(res.data);
+        console.log(res.data);
+    });
+}
+
+const api = { getHabits, getHabitsToday, signUp, signIn };
+
+export default api;
