@@ -83,7 +83,7 @@ const Day = styled.div`
     justify-content: center;
     align-items: center;
     color: ${({ days, id }) => (days.includes(id) ? "white" : "#dbdbdb")};
-    cursor: pointer;
+    cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
 const CreateHabitStyle = styled.div`
@@ -111,6 +111,11 @@ const CreateHabitStyle = styled.div`
         color: #dbdbdb;
     }
 
+    input:disabled {
+        background: #f2f2f2;
+        cursor: not-allowed;
+    }
+
     button:nth-child(3) {
         position: absolute;
         bottom: 23px;
@@ -134,6 +139,11 @@ const CreateHabitStyle = styled.div`
         border: none;
         color: white;
         font-size: 16px;
+    }
+
+    button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
     }
 `;
 

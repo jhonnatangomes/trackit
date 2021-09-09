@@ -2,6 +2,7 @@ import { CreateHabitStyle, Days, Day } from "./habitsStyle";
 import { useState, useContext } from "react";
 import axios from "axios";
 import LoginContext from "../../contexts/LoginContext";
+import Loader from "react-loader-spinner";
 
 export default function CreateHabit({
     weekdays,
@@ -12,6 +13,7 @@ export default function CreateHabit({
     const [habitName, setHabitName] = useState("");
     const [days, setDays] = useState([]);
     const login = useContext(LoginContext);
+    const [disabled, setDisabled] = useState(false);
 
     function selectDay(i) {
         let newDays = [...days];
@@ -24,6 +26,7 @@ export default function CreateHabit({
     }
 
     function createHabit() {
+        setDisabled(true);
         const habit = {
             name: habitName,
             days,
@@ -43,7 +46,8 @@ export default function CreateHabit({
             )
             .then((res) => {
                 setHabits([...habits, res.data]);
-                console.log(res.data);
+                setDisabled(false);
+                setCreateHabit(false);
             });
     }
 
@@ -54,6 +58,7 @@ export default function CreateHabit({
                 placeholder="nome do hábito"
                 value={habitName}
                 onChange={(e) => setHabitName(e.target.value)}
+                disabled={disabled}
             />
             <Days>
                 {weekdays.map((weekday, i) => (
@@ -61,14 +66,28 @@ export default function CreateHabit({
                         days={days}
                         id={i}
                         key={i}
-                        onClick={() => selectDay(i)}
+                        onClick={() => (disabled ? null : selectDay(i))}
+                        disabled={disabled}
                     >
                         {weekday}
                     </Day>
                 ))}
             </Days>
-            <button onClick={() => setCreateHabit(false)}>Cancelar</button>
-            <button onClick={createHabit}>Salvar</button>
+            <button onClick={() => setCreateHabit(false)} disabled={disabled}>
+                Cancelar
+            </button>
+            <button onClick={createHabit} disabled={disabled}>
+                {disabled ? (
+                    <Loader
+                        type="ThreeDots"
+                        color="#ffffff"
+                        height={35}
+                        width={35}
+                    />
+                ) : (
+                    "Salvar"
+                )}
+            </button>
         </CreateHabitStyle>
     );
 }

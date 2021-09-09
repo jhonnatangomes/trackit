@@ -60,7 +60,9 @@ export default function Habits() {
                             days={habit.days}
                             key={habit.id}
                             name={habit.name}
+                            id={habit.id}
                             weekdays={weekdays}
+                            setHabits={setHabits}
                         />
                     ))
                 ) : (

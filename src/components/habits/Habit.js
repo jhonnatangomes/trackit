@@ -1,7 +1,40 @@
 import { HabitStyle, Days, Day } from "./habitsStyle";
 import deleteButton from "../../assets/delete.png";
+import axios from "axios";
+import { useContext } from "react";
+import LoginContext from "../../contexts/LoginContext";
 
-export default function Habit({days, name, weekdays}) {
+export default function Habit({ days, name, weekdays, id, setHabits }) {
+    const login = useContext(LoginContext);
+    function deleteHabit() {
+        let wantToDelete = window.confirm(
+            "Você gostaria de deletar esse hábito?"
+        );
+        if (!wantToDelete) {
+            return;
+        }
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${login.token}`,
+            },
+        };
+
+        axios
+            .delete(
+                `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+                config
+            )
+            .then(
+                axios
+                    .get(
+                        "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+                        config
+                    )
+                    .then((res) => setHabits(res.data))
+            );
+    }
+
     return (
         <HabitStyle>
             <p>{name}</p>
@@ -12,7 +45,7 @@ export default function Habit({days, name, weekdays}) {
                     </Day>
                 ))}
             </Days>
-            <img src={deleteButton} alt=""/>
+            <img src={deleteButton} alt="" onClick={deleteHabit} />
         </HabitStyle>
     );
 }
