@@ -1,9 +1,10 @@
 import { LoginPage, Input, Button, Span } from "./loginPage";
-import { useLocation } from "react-router";
+import { useLocation, useHistory } from "react-router";
 import logo from "../../assets/logo.png";
 
 export default function Login() {
     const path = useLocation().pathname;
+    const history = useHistory();
 
     return (
         <LoginPage>
@@ -20,9 +21,15 @@ export default function Login() {
             )}
             <Button>{path === "/" ? "Entrar" : "Cadastrar"}</Button>
             <Span>
-                {path === "/"
-                    ? "Não tem uma conta? Cadastre-se"
-                    : "Já tem uma conta? Faça login!"}
+                {path === "/" ? (
+                    <p onClick={() => history.push("/cadastro")}>
+                        Não tem uma conta? Cadastre-se
+                    </p>
+                ) : (
+                    <p onClick={() => history.push("/")}>
+                        Já tem uma conta? Faça login!
+                    </p>
+                )}
             </Span>
         </LoginPage>
     );
