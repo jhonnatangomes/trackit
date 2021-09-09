@@ -29,12 +29,17 @@ export default function App() {
                         <Route path="/cadastro" exact>
                             <SignUp />
                         </Route>
-                        <ProgressContext.Provider value={progress}>
+                        <ProgressContext.Provider
+                            value={{ progress, setProgress }}
+                        >
                             <Route path="/habitos" exact>
                                 <Habits />
                             </Route>
                             <Route path="/hoje" exact>
-                                <HabitsToday setProgress={setProgress} />
+                                <HabitsToday
+                                    progres={progress}
+                                    setProgress={setProgress}
+                                />
                             </Route>
                             <Route path="/historico" exact>
                                 <History />

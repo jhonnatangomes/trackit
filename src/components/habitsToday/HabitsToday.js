@@ -7,7 +7,7 @@ import { useEffect, useContext, useState } from "react";
 import LoginContext from "../../contexts/LoginContext";
 import axios from "axios";
 
-export default function HabitsToday({ setProgress }) {
+export default function HabitsToday({ progress, setProgress }) {
     const date = new Date();
     const weekdays = [
         "Domingo",
@@ -19,10 +19,6 @@ export default function HabitsToday({ setProgress }) {
         "Sábado",
     ];
     const [habits, setHabits] = useState([]);
-    const doneHabits = habits.filter((habit) => habit.done === true);
-    const percentageDone = ((doneHabits.length / habits.length) * 100).toFixed(
-        0
-    );
     const login = useContext(LoginContext);
 
     useEffect(() => {
@@ -31,13 +27,20 @@ export default function HabitsToday({ setProgress }) {
                 Authorization: `Bearer ${login.token}`,
             },
         };
-        setProgress(percentageDone);
         axios
             .get(
                 "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
                 config
             )
-            .then((res) => setHabits(res.data));
+            .then((res) => {
+                const doneHabits = res.data.filter(
+                    (habit) => habit.done === true
+                );
+                setProgress(
+                    ((doneHabits.length / res.data.length) * 100).toFixed(0)
+                );
+                setHabits(res.data);
+            });
     }, []);
 
     return (
@@ -50,12 +53,17 @@ export default function HabitsToday({ setProgress }) {
                     {String(date.getMonth() + 1).padStart(2, "0")}
                 </Day>
                 <PercentageDoneHabits habits={habits}>
-                    {doneHabits.length
-                        ? `${percentageDone}% dos hábitos concluídos`
+                    {progress > 0
+                        ? `${progress}% dos hábitos concluídos`
                         : "Nenhum hábito concluído ainda"}
                 </PercentageDoneHabits>
                 {habits.map((habit) => (
-                    <Habit key={habit.id} habit={habit} />
+                    <Habit
+                        key={habit.id}
+                        habit={habit}
+                        habits={habits}
+                        setHabits={setHabits}
+                    />
                 ))}
             </main>
             <Footer />

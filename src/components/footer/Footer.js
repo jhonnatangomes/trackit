@@ -6,8 +6,7 @@ import { useContext } from "react";
 import ProgressContext from "../../contexts/ProgressContext";
 
 export default function Footer() {
-    const percentageDone = useContext(ProgressContext);
-
+    const { progress } = useContext(ProgressContext);
     return (
         <FooterStyle>
             <Link to="/habitos">
@@ -18,7 +17,7 @@ export default function Footer() {
                     <ProgressDiv>
                         <CircularProgressbar
                             text="Hoje"
-                            value={percentageDone}
+                            value={progress}
                             styles={buildStyles({
                                 pathColor: "#fff",
                                 textColor: "#fff",
