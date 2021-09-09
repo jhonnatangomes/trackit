@@ -9,9 +9,13 @@ export default function CreateHabit({
     setCreateHabit,
     habits,
     setHabits,
+    newHabitName,
+    setNewHabitName,
+    days,
+    setDays,
 }) {
-    const [habitName, setHabitName] = useState("");
-    const [days, setDays] = useState([]);
+    // const [habitName, setHabitName] = useState("");
+    // const [days, setDays] = useState([]);
     const login = useContext(LoginContext);
     const [disabled, setDisabled] = useState(false);
 
@@ -28,7 +32,7 @@ export default function CreateHabit({
     function createHabit() {
         setDisabled(true);
         const habit = {
-            name: habitName,
+            name: newHabitName,
             days,
         };
 
@@ -48,6 +52,12 @@ export default function CreateHabit({
                 setHabits([...habits, res.data]);
                 setDisabled(false);
                 setCreateHabit(false);
+                setDays([]);
+                setNewHabitName("");
+            })
+            .catch((err) => {
+                alert(err);
+                setDisabled(false);
             });
     }
 
@@ -56,8 +66,8 @@ export default function CreateHabit({
             <input
                 type="text"
                 placeholder="nome do hábito"
-                value={habitName}
-                onChange={(e) => setHabitName(e.target.value)}
+                value={newHabitName}
+                onChange={(e) => setNewHabitName(e.target.value)}
                 disabled={disabled}
             />
             <Days>

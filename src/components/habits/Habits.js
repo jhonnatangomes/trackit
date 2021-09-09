@@ -17,6 +17,8 @@ export default function Habits() {
     const login = useContext(LoginContext);
     const [habits, setHabits] = useState([]);
     const [createHabit, setCreateHabit] = useState(false);
+    const [newHabitName, setNewHabitName] = useState("");
+    const [days, setDays] = useState([]);
     const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
     useEffect(() => {
@@ -50,6 +52,10 @@ export default function Habits() {
                         setCreateHabit={setCreateHabit}
                         habits={habits}
                         setHabits={setHabits}
+                        newHabitName={newHabitName}
+                        setNewHabitName={setNewHabitName}
+                        days={days}
+                        setDays={setDays}
                     />
                 ) : (
                     ""
