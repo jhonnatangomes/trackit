@@ -4,15 +4,33 @@ import {
     MyHabits,
     TitleContainer,
     PlusButton,
-    NoHabitsYet
+    NoHabitsYet,
 } from "./habitsStyle";
 import Habit from "./Habit";
 import api from "../../api/api";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import CreateHabit from "./CreateHabit";
+import LoginContext from "../../contexts/LoginContext";
+import axios from "axios";
 
 export default function Habits() {
-    const habits = api.getHabits();
+    const login = useContext(LoginContext);
+    const [habits, setHabits] = useState([]);
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${login.token}`,
+            },
+        };
+
+        axios
+            .get(
+                "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+                config
+            )
+            .then((res) => setHabits(res.data));
+    }, []);
     const [createHabit, setCreateHabit] = useState(false);
     const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
     return (
@@ -21,9 +39,11 @@ export default function Habits() {
             <main>
                 <TitleContainer>
                     <MyHabits>Meus hábitos</MyHabits>
-                    <PlusButton onClick={() => setCreateHabit(!createHabit)}>+</PlusButton>
+                    <PlusButton onClick={() => setCreateHabit(!createHabit)}>
+                        +
+                    </PlusButton>
                 </TitleContainer>
-                {createHabit ? <CreateHabit weekdays={weekdays}/> : ""}
+                {createHabit ? <CreateHabit weekdays={weekdays} /> : ""}
                 {habits.length ? (
                     habits.map((habit) => (
                         <Habit

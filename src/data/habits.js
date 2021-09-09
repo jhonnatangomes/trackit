@@ -15,7 +15,7 @@ let habitsToday = [
     {
         id: 1,
         name: "Ler 1 capítulo de livro",
-        done: true,
+        done: false,
         currentSequence: 3,
         highestSequence: 5,
     },

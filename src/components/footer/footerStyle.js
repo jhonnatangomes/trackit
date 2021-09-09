@@ -41,7 +41,6 @@ const ProgressDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
 `;
 
 export { FooterStyle, Span, Circle, ProgressDiv };
