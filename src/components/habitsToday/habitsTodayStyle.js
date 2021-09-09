@@ -44,6 +44,17 @@ const HabitInformation = styled.div`
         line-height: 16px;
         color: #666666;
     }
+
+    p:nth-child(2) span {
+        color: ${({ habit }) => (habit.done ? "#8fc549" : "#666666")};
+    }
+
+    p:nth-child(3) span {
+        color: ${({ habit }) =>
+            habit.currentSequence === habit.highestSequence
+                ? "#8fc549"
+                : "#666666"};
+    }
 `;
 
 const ContainerDoneButton = styled.div`

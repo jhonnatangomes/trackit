@@ -37,7 +37,7 @@ export default function App() {
                             </Route>
                             <Route path="/hoje" exact>
                                 <HabitsToday
-                                    progres={progress}
+                                    progress={progress}
                                     setProgress={setProgress}
                                 />
                             </Route>

@@ -74,15 +74,21 @@ export default function Habit({ habit, habits, setHabits }) {
 
     return (
         <HabitStyle>
-            <HabitInformation>
+            <HabitInformation habit={habit}>
                 <p>{habit.name}</p>
                 <p>
-                    Sequência: {habit.currentSequence}{" "}
-                    {habit.currentSequence !== 1 ? "dias" : "dia"}
+                    Sequência:{" "}
+                    <span>
+                        {habit.currentSequence}{" "}
+                        {habit.currentSequence !== 1 ? "dias" : "dia"}
+                    </span>
                 </p>
                 <p>
-                    Seu recorde: {habit.highestSequence}{" "}
-                    {habit.highestSequence !== 1 ? "dias" : "dia"}
+                    Seu recorde:{" "}
+                    <span>
+                        {habit.highestSequence}{" "}
+                        {habit.highestSequence !== 1 ? "dias" : "dia"}
+                    </span>
                 </p>
             </HabitInformation>
             <ContainerDoneButton>
