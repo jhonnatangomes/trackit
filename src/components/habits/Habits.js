@@ -7,7 +7,6 @@ import {
     NoHabitsYet,
 } from "./habitsStyle";
 import Habit from "./Habit";
-import api from "../../api/api";
 import { useState, useContext, useEffect } from "react";
 import CreateHabit from "./CreateHabit";
 import LoginContext from "../../contexts/LoginContext";
@@ -68,6 +67,7 @@ export default function Habits() {
                             name={habit.name}
                             id={habit.id}
                             weekdays={weekdays}
+                            habits={habits}
                             setHabits={setHabits}
                         />
                     ))

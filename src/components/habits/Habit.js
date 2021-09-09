@@ -4,7 +4,7 @@ import axios from "axios";
 import { useContext } from "react";
 import LoginContext from "../../contexts/LoginContext";
 
-export default function Habit({ days, name, weekdays, id, setHabits }) {
+export default function Habit({ days, name, weekdays, id, habits, setHabits }) {
     const login = useContext(LoginContext);
     function deleteHabit() {
         let wantToDelete = window.confirm(
@@ -25,14 +25,7 @@ export default function Habit({ days, name, weekdays, id, setHabits }) {
                 `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
                 config
             )
-            .then(
-                axios
-                    .get(
-                        "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
-                        config
-                    )
-                    .then((res) => setHabits(res.data))
-            );
+            .then(setHabits(habits.filter((habit) => habit.id !== id)));
     }
 
     return (

@@ -3,7 +3,9 @@ import Footer from "../footer/Footer";
 import { Day, PercentageDoneHabits } from "./habitsTodayStyle";
 import api from "../../api/api";
 import Habit from "./Habit";
-import { useEffect } from "react";
+import { useEffect, useContext, useState } from "react";
+import LoginContext from "../../contexts/LoginContext";
+import axios from "axios";
 
 export default function HabitsToday({ setProgress }) {
     const date = new Date();
@@ -16,14 +18,26 @@ export default function HabitsToday({ setProgress }) {
         "Sexta",
         "Sábado",
     ];
-    const habits = api.getHabitsToday();
+    const [habits, setHabits] = useState([]);
     const doneHabits = habits.filter((habit) => habit.done === true);
     const percentageDone = ((doneHabits.length / habits.length) * 100).toFixed(
         0
     );
+    const login = useContext(LoginContext);
 
     useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${login.token}`,
+            },
+        };
         setProgress(percentageDone);
+        axios
+            .get(
+                "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
+                config
+            )
+            .then((res) => setHabits(res.data));
     }, []);
 
     return (
