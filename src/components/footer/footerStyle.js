@@ -14,12 +14,12 @@ const FooterStyle = styled.footer`
     justify-content: space-between;
     font-size: 18px;
     line-height: 22px;
-`
+`;
 
 const Span = styled.span`
     color: #52b6ff;
     cursor: pointer;
-`
+`;
 
 const Circle = styled.div`
     width: 91px;
@@ -32,10 +32,16 @@ const Circle = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-`
+`;
 
-export {
-    FooterStyle,
-    Span,
-    Circle
-}
+const ProgressDiv = styled.div`
+    width: 79px;
+    height: 79px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+`;
+
+export { FooterStyle, Span, Circle, ProgressDiv };

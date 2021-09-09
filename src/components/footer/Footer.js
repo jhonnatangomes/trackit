@@ -1,5 +1,7 @@
-import { FooterStyle, Span, Circle } from "./footerStyle";
+import { FooterStyle, Span, Circle, ProgressDiv } from "./footerStyle";
 import { Link } from "react-router-dom";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function Footer() {
     return (
@@ -8,7 +10,20 @@ export default function Footer() {
                 <Span>Hábitos</Span>
             </Link>
             <Link to="/hoje">
-                <Circle>Hoje</Circle>
+                <Circle>
+                    <ProgressDiv>
+                        <CircularProgressbar
+                            text="Hoje"
+                            value={33}
+                            styles={buildStyles({
+                                pathColor: "#fff",
+                                textColor: "#fff",
+                                trailColor: "#52b6ff",
+                                textSize: "22px",
+                            })}
+                        />
+                    </ProgressDiv>
+                </Circle>
             </Link>
             <Link to="/historico">
                 <Span>Histórico</Span>
