@@ -1,14 +1,16 @@
 import { LoginPage, Input, Button, Span } from "./loginStyle";
 import { useLocation, useHistory } from "react-router";
 import logo from "../../assets/logo.png";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import LoginContext from "../../contexts/LoginContext";
+import Loader from "react-loader-spinner";
 import api from "../../api/api";
 
 export default function Login({ setLogin }) {
     const path = useLocation().pathname;
     const history = useHistory();
     const login = useContext(LoginContext);
+    const [disabled, setDisabled] = useState(false);
 
     return (
         <LoginPage>
@@ -18,6 +20,7 @@ export default function Login({ setLogin }) {
                 placeholder="email"
                 value={login.email}
                 onChange={(e) => setLogin({ ...login, email: e.target.value })}
+                disabled={disabled}
             />
             <Input
                 type="text"
@@ -26,6 +29,7 @@ export default function Login({ setLogin }) {
                 onChange={(e) =>
                     setLogin({ ...login, password: e.target.value })
                 }
+                disabled={disabled}
             />
             {path === "/cadastro" ? (
                 <>
@@ -56,10 +60,21 @@ export default function Login({ setLogin }) {
                             email: login.email,
                             password: login.password,
                         };
-                        api.signIn(loginObject, setLogin);
+                        setDisabled(true);
+                        api.signIn(loginObject, setLogin, setDisabled);
                     }}
+                    disabled={disabled}
                 >
-                    Entrar
+                    {disabled ? (
+                        <Loader
+                            type="ThreeDots"
+                            color="#ffffff"
+                            height={70}
+                            width={70}
+                        />
+                    ) : (
+                        "Entrar"
+                    )}
                 </Button>
             ) : (
                 <Button

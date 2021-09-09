@@ -14,10 +14,11 @@ function signUp(body) {
     axios.post(`${URL_API}/auth/sign-up`, body);
 }
 
-function signIn(body, setLogin) {
+function signIn(body, setLogin, setDisabled) {
     axios.post(`${URL_API}/auth/login`, body).then((res) => {
         setLogin(res.data);
         console.log(res.data);
+        setDisabled(false);
     });
 }
 

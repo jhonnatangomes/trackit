@@ -27,6 +27,11 @@ const Input = styled.input`
         font-family: "Lexend Deca", sans-serif;
         color: #dbdbdb;
     }
+
+    &:disabled {
+        background: #f2f2f2;
+        cursor: not-allowed;
+    }
 `;
 
 const Button = styled.button`
@@ -38,14 +43,21 @@ const Button = styled.button`
     font-size: 21px;
     color: white;
     margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
 `;
 
 const Span = styled.span`
     font-size: 14px;
     text-decoration: underline;
-    color: #52B6FF;
+    color: #52b6ff;
     cursor: pointer;
-`
-
+`;
 
 export { LoginPage, Input, Button, Span };
