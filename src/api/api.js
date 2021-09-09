@@ -10,8 +10,10 @@ function getHabitsToday() {
     return habitsToday;
 }
 
-function signUp(body) {
-    axios.post(`${URL_API}/auth/sign-up`, body);
+function signUp(body, setDisabled) {
+    axios.post(`${URL_API}/auth/sign-up`, body).then((res) => {
+        setDisabled(false);
+    });
 }
 
 function signIn(body, setLogin, setDisabled) {

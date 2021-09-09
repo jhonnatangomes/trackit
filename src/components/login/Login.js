@@ -40,6 +40,7 @@ export default function Login({ setLogin }) {
                         onChange={(e) =>
                             setLogin({ ...login, name: e.target.value })
                         }
+                        disabled={disabled}
                     />
                     <Input
                         type="text"
@@ -48,6 +49,7 @@ export default function Login({ setLogin }) {
                         onChange={(e) =>
                             setLogin({ ...login, image: e.target.value })
                         }
+                        disabled={disabled}
                     />
                 </>
             ) : (
@@ -69,8 +71,8 @@ export default function Login({ setLogin }) {
                         <Loader
                             type="ThreeDots"
                             color="#ffffff"
-                            height={70}
-                            width={70}
+                            height={45}
+                            width={45}
                         />
                     ) : (
                         "Entrar"
@@ -79,10 +81,21 @@ export default function Login({ setLogin }) {
             ) : (
                 <Button
                     onClick={() => {
-                        api.signUp(login);
+                        setDisabled(true);
+                        api.signUp(login, setDisabled);
                     }}
+                    disabled={disabled}
                 >
-                    Cadastrar
+                    {disabled ? (
+                        <Loader
+                            type="ThreeDots"
+                            color="#ffffff"
+                            height={45}
+                            width={45}
+                        />
+                    ) : (
+                        "Cadastrar"
+                    )}
                 </Button>
             )}
             <Span>
