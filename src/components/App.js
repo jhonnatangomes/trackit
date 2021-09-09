@@ -7,12 +7,15 @@ import Habits from "./habits/Habits";
 import HabitsToday from "./habitsToday/HabitsToday";
 import History from "./history/History";
 import LoginContext from "../contexts/LoginContext";
+import ProgressContext from "../contexts/ProgressContext";
 
 export default function App() {
     const [login, setLogin] = useState({
         email: "",
         password: "",
     });
+
+    const [progress, setProgress] = useState(0);
 
     return (
         <>
@@ -26,15 +29,17 @@ export default function App() {
                         <Route path="/cadastro" exact>
                             <SignUp />
                         </Route>
-                        <Route path="/habitos" exact>
-                            <Habits />
-                        </Route>
-                        <Route path="/hoje" exact>
-                            <HabitsToday />
-                        </Route>
-                        <Route path="/historico" exact>
-                            <History />
-                        </Route>
+                        <ProgressContext.Provider value={progress}>
+                            <Route path="/habitos" exact>
+                                <Habits />
+                            </Route>
+                            <Route path="/hoje" exact>
+                                <HabitsToday setProgress={setProgress} />
+                            </Route>
+                            <Route path="/historico" exact>
+                                <History />
+                            </Route>
+                        </ProgressContext.Provider>
                     </Switch>
                 </Router>
             </LoginContext.Provider>

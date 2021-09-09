@@ -3,8 +3,9 @@ import Footer from "../footer/Footer";
 import { Day, PercentageDoneHabits } from "./habitsTodayStyle";
 import api from "../../api/api";
 import Habit from "./Habit";
+import { useEffect } from "react";
 
-export default function HabitsToday() {
+export default function HabitsToday({ setProgress }) {
     const date = new Date();
     const weekdays = [
         "Domingo",
@@ -17,8 +18,14 @@ export default function HabitsToday() {
     ];
     const habits = api.getHabitsToday();
     const doneHabits = habits.filter((habit) => habit.done === true);
-    const percentageDone = (doneHabits.length / habits.length * 100).toFixed(0);
-    
+    const percentageDone = ((doneHabits.length / habits.length) * 100).toFixed(
+        0
+    );
+
+    useEffect(() => {
+        setProgress(percentageDone);
+    }, []);
+
     return (
         <>
             <Header />
@@ -33,7 +40,9 @@ export default function HabitsToday() {
                         ? `${percentageDone}% dos hábitos concluídos`
                         : "Nenhum hábito concluído ainda"}
                 </PercentageDoneHabits>
-                {habits.map(habit => <Habit key={habit.id} habit={habit}/>)}
+                {habits.map((habit) => (
+                    <Habit key={habit.id} habit={habit} />
+                ))}
             </main>
             <Footer />
         </>
