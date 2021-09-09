@@ -1,15 +1,19 @@
 import { LoginPage, Input, Button, Span } from "./loginStyle";
 import { useHistory } from "react-router";
 import logo from "../../assets/logo.png";
-import { useContext, useState } from "react";
-import LoginContext from "../../contexts/LoginContext";
+import { useState } from "react";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 
-export default function Login({ setLogin }) {
-    const history = useHistory();
-    const login = useContext(LoginContext);
+export default function SignUp() {
     const [disabled, setDisabled] = useState(false);
+    const [login, setLogin] = useState({
+        name: "",
+        email: "",
+        password: "",
+        image: "",
+    });
+    const history = useHistory();
 
     return (
         <LoginPage>
@@ -30,18 +34,30 @@ export default function Login({ setLogin }) {
                 }
                 disabled={disabled}
             />
+            <Input
+                type="text"
+                placeholder="nome"
+                value={login.name}
+                onChange={(e) => setLogin({ ...login, name: e.target.value })}
+                disabled={disabled}
+            />
+            <Input
+                type="text"
+                placeholder="foto"
+                value={login.image}
+                onChange={(e) => setLogin({ ...login, image: e.target.value })}
+                disabled={disabled}
+            />
             <Button
                 onClick={() => {
                     setDisabled(true);
                     axios
                         .post(
-                            "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
-                            login
+                            "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
                         )
-                        .then((res) => {
-                            setLogin(res.data);
+                        .then(() => {
                             setDisabled(false);
-                            history.push("/hoje");
+                            history.push("/");
                         })
                         .catch((err) => {
                             alert(err);
@@ -58,12 +74,11 @@ export default function Login({ setLogin }) {
                         width={45}
                     />
                 ) : (
-                    "Entrar"
+                    "Cadastrar"
                 )}
             </Button>
-
-            <Span onClick={() => history.push("/cadastro")}>
-                Não tem uma conta? Cadastre-se
+            <Span onClick={() => history.push("/")}>
+                Já tem uma conta? Faça login!
             </Span>
         </LoginPage>
     );

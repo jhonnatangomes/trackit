@@ -1,11 +1,14 @@
 import { HeaderStyle, Title, Profile } from "./headerStyle";
-import profile from "../../assets/profile.png";
+import LoginContext from "../../contexts/LoginContext";
+import { useContext } from "react";
 
 export default function Header() {
+    const { image } = useContext(LoginContext);
+
     return (
         <HeaderStyle>
             <Title>TrackIt</Title>
-            <Profile src={profile} alt=""/>
+            <Profile src={image} alt="" />
         </HeaderStyle>
     );
 }
