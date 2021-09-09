@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png";
 import { useContext, useState } from "react";
 import LoginContext from "../../contexts/LoginContext";
 import Loader from "react-loader-spinner";
-import api from "../../api/api";
+import axios from "axios";
 
 export default function Login({ setLogin }) {
     const path = useLocation().pathname;
@@ -63,7 +63,20 @@ export default function Login({ setLogin }) {
                             password: login.password,
                         };
                         setDisabled(true);
-                        api.signIn(loginObject, setLogin, setDisabled);
+                        axios
+                            .post(
+                                "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
+                                loginObject
+                            )
+                            .then((res) => {
+                                setLogin(res.data);
+                                setDisabled(false);
+                                history.push("/hoje");
+                            })
+                            .catch((err) => {
+                                alert(err);
+                                setDisabled(false);
+                            });
                     }}
                     disabled={disabled}
                 >
@@ -82,7 +95,11 @@ export default function Login({ setLogin }) {
                 <Button
                     onClick={() => {
                         setDisabled(true);
-                        api.signUp(login, setDisabled);
+                        axios
+                            .post(
+                                "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
+                            )
+                            .then((res) => setDisabled(false));
                     }}
                     disabled={disabled}
                 >
