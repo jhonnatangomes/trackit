@@ -35,7 +35,10 @@ export default function Habit({ habit, habits, setHabits }) {
                                   ...e,
                                   done: true,
                                   currentSequence: e.currentSequence + 1,
-                                  highestSequence: e.highestSequence + 1,
+                                  highestSequence:
+                                      e.highestSequence === e.currentSequence
+                                          ? e.highestSequence + 1
+                                          : e.highestSequence,
                               }
                             : e
                     );
@@ -59,7 +62,10 @@ export default function Habit({ habit, habits, setHabits }) {
                                   ...e,
                                   done: false,
                                   currentSequence: e.currentSequence - 1,
-                                  highestSequence: e.highestSequence - 1,
+                                  highestSequence:
+                                      e.highestSequence === e.currentSequence
+                                          ? e.highestSequence - 1
+                                          : e.highestSequence,
                               }
                             : e
                     );
