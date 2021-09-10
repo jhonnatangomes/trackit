@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Calendar from "react-calendar";
 
 const Title = styled.span`
     font-size: 23px;
@@ -7,4 +6,8 @@ const Title = styled.span`
     color: #126ba5;
 `;
 
-export { Title };
+const CalendarContainer = styled.div`
+    margin-top: 11px;
+`;
+
+export { Title, CalendarContainer };
