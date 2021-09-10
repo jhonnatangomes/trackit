@@ -38,9 +38,12 @@ export default function HabitsToday({ progress, setProgress }) {
                 const doneHabits = res.data.filter(
                     (habit) => habit.done === true
                 );
-                setProgress(
-                    ((doneHabits.length / res.data.length) * 100).toFixed(0)
-                );
+                if (res.data.length) {
+                    setProgress(
+                        ((doneHabits.length / res.data.length) * 100).toFixed(0)
+                    );
+                }
+
                 setHabits(res.data);
             })
             .catch((err) => {

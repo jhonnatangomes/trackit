@@ -7,6 +7,7 @@ import ProgressContext from "../../contexts/ProgressContext";
 
 export default function Footer() {
     const { progress } = useContext(ProgressContext);
+    console.log(progress);
     return (
         <FooterStyle>
             <Link to="/habitos">
