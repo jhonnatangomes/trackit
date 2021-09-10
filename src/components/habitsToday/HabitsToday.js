@@ -1,7 +1,6 @@
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { Day, PercentageDoneHabits } from "./habitsTodayStyle";
-import api from "../../api/api";
 import Habit from "./Habit";
 import { useEffect, useContext, useState } from "react";
 import LoginContext from "../../contexts/LoginContext";

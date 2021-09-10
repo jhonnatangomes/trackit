@@ -12,11 +12,45 @@ export default function Login({ setLogin }) {
     const [disabled, setDisabled] = useState(false);
 
     useEffect(() => {
-        setLogin({
-            email: "",
-            password: "",
-        });
+        if (localStorage.login) {
+            setLogin(JSON.parse(localStorage.login));
+            setDisabled(true);
+            axios
+                .post(
+                    "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
+                    JSON.parse(localStorage.login)
+                )
+                .then((res) => {
+                    setLogin(res.data);
+                    setDisabled(false);
+                    history.push("/hoje");
+                });
+        } else {
+            setLogin({
+                email: "",
+                password: "",
+            });
+        }
     }, []);
+
+    function enter() {
+        setDisabled(true);
+        axios
+            .post(
+                "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
+                login
+            )
+            .then((res) => {
+                setLogin(res.data);
+                localStorage.setItem("login", JSON.stringify(login));
+                setDisabled(false);
+                history.push("/hoje");
+            })
+            .catch((err) => {
+                treatError(err.response.data);
+                setDisabled(false);
+            });
+    }
 
     function treatError(error) {
         if (error.details) {
@@ -46,12 +80,14 @@ export default function Login({ setLogin }) {
             <Input
                 type="text"
                 placeholder="email"
+                name="email-input"
                 value={login.email}
                 onChange={(e) => setLogin({ ...login, email: e.target.value })}
                 disabled={disabled}
+                autoComplete="name"
             />
             <Input
-                type="text"
+                type="password"
                 placeholder="senha"
                 value={login.password}
                 onChange={(e) =>
@@ -59,26 +95,7 @@ export default function Login({ setLogin }) {
                 }
                 disabled={disabled}
             />
-            <Button
-                onClick={() => {
-                    setDisabled(true);
-                    axios
-                        .post(
-                            "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
-                            login
-                        )
-                        .then((res) => {
-                            setLogin(res.data);
-                            setDisabled(false);
-                            history.push("/hoje");
-                        })
-                        .catch((err) => {
-                            treatError(err.response.data);
-                            setDisabled(false);
-                        });
-                }}
-                disabled={disabled}
-            >
+            <Button onClick={enter} disabled={disabled}>
                 {disabled ? (
                     <Loader
                         type="ThreeDots"
