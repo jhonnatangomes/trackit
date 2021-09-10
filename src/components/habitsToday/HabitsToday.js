@@ -6,6 +6,7 @@ import Habit from "./Habit";
 import { useEffect, useContext, useState } from "react";
 import LoginContext from "../../contexts/LoginContext";
 import axios from "axios";
+import { useHistory } from "react-router";
 
 export default function HabitsToday({ progress, setProgress }) {
     const date = new Date();
@@ -20,6 +21,7 @@ export default function HabitsToday({ progress, setProgress }) {
     ];
     const [habits, setHabits] = useState([]);
     const login = useContext(LoginContext);
+    const history = useHistory();
 
     useEffect(() => {
         const config = {
@@ -40,6 +42,12 @@ export default function HabitsToday({ progress, setProgress }) {
                     ((doneHabits.length / res.data.length) * 100).toFixed(0)
                 );
                 setHabits(res.data);
+            })
+            .catch((err) => {
+                if (err.response.data.message === "Token inválido!") {
+                    alert("Você não está logado!");
+                    history.push("/");
+                }
             });
     }, []);
 

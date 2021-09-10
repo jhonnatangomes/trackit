@@ -17,6 +17,12 @@ export default function CreateHabit({
     const login = useContext(LoginContext);
     const [disabled, setDisabled] = useState(false);
 
+    function treatError(error) {
+        if (error.details) {
+            alert("O nome do hábito não pode estar vazio");
+        }
+    }
+
     function selectDay(i) {
         let newDays = [...days];
         if (days.includes(i)) {
@@ -28,6 +34,10 @@ export default function CreateHabit({
     }
 
     function createHabit() {
+        if (!days.length) {
+            alert("Selecione pelo menos um dia!");
+            return;
+        }
         setDisabled(true);
         const habit = {
             name: newHabitName,
@@ -54,7 +64,7 @@ export default function CreateHabit({
                 setNewHabitName("");
             })
             .catch((err) => {
-                alert(err);
+                treatError(err.response.data);
                 setDisabled(false);
             });
     }

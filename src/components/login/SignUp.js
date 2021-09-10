@@ -15,6 +15,37 @@ export default function SignUp() {
     });
     const history = useHistory();
 
+    function treatError(error) {
+        if (error.details) {
+            error.details.forEach((detail) => {
+                switch (detail) {
+                    case '"name" is not allowed to be empty':
+                        alert("O nome não pode estar vazio!");
+                        break;
+                    case '"email" is not allowed to be empty':
+                        alert("O e-mail não pode estar vazio!");
+                        break;
+                    case '"image" is not allowed to be empty':
+                        alert("A imagem não pode estar vazia!");
+                        break;
+                    case '"password" is not allowed to be empty':
+                        alert("A senha não pode estar vazia!");
+                        break;
+                    case '"email" must be a valid email':
+                        alert("Digite um e-mail válido!");
+                        break;
+                    case '"image" must be a valid uri':
+                        alert("Digite uma URL de imagem válida!");
+                        break;
+                    default:
+                        break;
+                }
+            });
+        } else {
+            alert(error.message);
+        }
+    }
+
     return (
         <LoginPage>
             <img src={logo} alt="" />
@@ -53,14 +84,15 @@ export default function SignUp() {
                     setDisabled(true);
                     axios
                         .post(
-                            "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
+                            "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
+                            login
                         )
                         .then(() => {
                             setDisabled(false);
                             history.push("/");
                         })
                         .catch((err) => {
-                            alert(err);
+                            treatError(err.response.data);
                             setDisabled(false);
                         });
                 }}

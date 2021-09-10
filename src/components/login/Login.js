@@ -1,7 +1,7 @@
 import { LoginPage, Input, Button, Span } from "./loginStyle";
 import { useHistory } from "react-router";
 import logo from "../../assets/logo.png";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import LoginContext from "../../contexts/LoginContext";
 import Loader from "react-loader-spinner";
 import axios from "axios";
@@ -10,6 +10,35 @@ export default function Login({ setLogin }) {
     const history = useHistory();
     const login = useContext(LoginContext);
     const [disabled, setDisabled] = useState(false);
+
+    useEffect(() => {
+        setLogin({
+            email: "",
+            password: "",
+        });
+    }, []);
+
+    function treatError(error) {
+        if (error.details) {
+            error.details.forEach((detail) => {
+                switch (detail) {
+                    case '"email" must be a valid email':
+                        alert("Digite um email válido!");
+                        break;
+                    case '"email" is not allowed to be empty':
+                        alert("O e-mail não pode estar vazio!");
+                        break;
+                    case '"password" is not allowed to be empty':
+                        alert("A senha não pode estar vazia!");
+                        break;
+                    default:
+                        break;
+                }
+            });
+        } else {
+            alert(error.message);
+        }
+    }
 
     return (
         <LoginPage>
@@ -44,7 +73,7 @@ export default function Login({ setLogin }) {
                             history.push("/hoje");
                         })
                         .catch((err) => {
-                            alert(err);
+                            treatError(err.response.data);
                             setDisabled(false);
                         });
                 }}

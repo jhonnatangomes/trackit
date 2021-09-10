@@ -11,9 +11,11 @@ import { useState, useContext, useEffect } from "react";
 import CreateHabit from "./CreateHabit";
 import LoginContext from "../../contexts/LoginContext";
 import axios from "axios";
+import { useHistory } from "react-router";
 
 export default function Habits() {
     const login = useContext(LoginContext);
+    const history = useHistory();
     const [habits, setHabits] = useState([]);
     const [createHabit, setCreateHabit] = useState(false);
     const [newHabitName, setNewHabitName] = useState("");
@@ -32,7 +34,13 @@ export default function Habits() {
                 "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
                 config
             )
-            .then((res) => setHabits(res.data));
+            .then((res) => setHabits(res.data))
+            .catch((err) => {
+                if (err.response.data.message === "Token inválido!") {
+                    alert("Você não está logado!");
+                    history.push("/");
+                }
+            });
     }, []);
 
     return (
