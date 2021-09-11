@@ -31,7 +31,10 @@ export default function History() {
 
     function returnClassName(date) {
         for (let element of habitHistory) {
-            if (element.day === dayjs(date).format("DD/MM/YYYY")) {
+            if (
+                element.day === dayjs(date).format("DD/MM/YYYY") &&
+                element.day !== dayjs().format("DD/MM/YYYY")
+            ) {
                 const doneHabits = element.habits.filter((habit) => habit.done);
                 if (doneHabits.length === element.habits.length) {
                     return "item green";
