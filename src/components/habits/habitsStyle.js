@@ -35,7 +35,6 @@ const NoHabitsYet = styled.p`
 
 const HabitStyle = styled.div`
     width: 100%;
-    height: 91px;
     background: white;
     font-size: 20px;
     border-radius: 5px;

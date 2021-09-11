@@ -34,7 +34,9 @@ export default function Habits() {
                 "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
                 config
             )
-            .then((res) => setHabits(res.data))
+            .then((res) => {
+                setHabits(res.data);
+            })
             .catch((err) => {
                 if (err.response.data.message === "Token inválido!") {
                     alert("Você não está logado!");
