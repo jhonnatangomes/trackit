@@ -37,6 +37,7 @@ const HabitInformation = styled.div`
         line-height: 25px;
         color: #666666;
         margin-bottom: 7px;
+        width: calc(100% - 5px);
     }
 
     p:not(:first-child) {

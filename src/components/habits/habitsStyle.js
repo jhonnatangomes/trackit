@@ -44,6 +44,7 @@ const HabitStyle = styled.div`
 
     p {
         margin-bottom: 8px;
+        width: calc(100% - 25px);
     }
 
     &:nth-child(2) {
