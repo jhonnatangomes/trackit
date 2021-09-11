@@ -81,7 +81,7 @@ export default function Login({ setLogin }) {
                 type="text"
                 placeholder="email"
                 name="email-input"
-                value={login.email}
+                value={login.email || ""}
                 onChange={(e) => setLogin({ ...login, email: e.target.value })}
                 disabled={disabled}
                 autoComplete="name"
@@ -89,7 +89,7 @@ export default function Login({ setLogin }) {
             <Input
                 type="password"
                 placeholder="senha"
-                value={login.password}
+                value={login.password || ""}
                 onChange={(e) =>
                     setLogin({ ...login, password: e.target.value })
                 }

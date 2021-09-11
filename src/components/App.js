@@ -10,10 +10,7 @@ import LoginContext from "../contexts/LoginContext";
 import ProgressContext from "../contexts/ProgressContext";
 
 export default function App() {
-    const [login, setLogin] = useState({
-        email: "",
-        password: "",
-    });
+    const [login, setLogin] = useState({});
 
     const [progress, setProgress] = useState(0);
 
