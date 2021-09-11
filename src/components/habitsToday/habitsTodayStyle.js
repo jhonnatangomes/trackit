@@ -18,6 +18,7 @@ const HabitStyle = styled.div`
     padding: 13px 13px 12px 15px;
     display: flex;
     justify-content: space-between;
+    border-radius: 5px;
 
     &:nth-child(3) {
         margin-top: 28px;

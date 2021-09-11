@@ -1,16 +1,22 @@
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import HistoryDetails from "./HistoryDetails";
 import { CalendarContainer, Title } from "./historyStyle";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import LoginContext from "../../contexts/LoginContext";
 import axios from "axios";
 import dayjs from "dayjs";
 
 export default function History() {
     const login = useContext(LoginContext);
+    const history = useHistory();
     const [habitHistory, setHabitHistory] = useState([]);
+    const [dayClicked, setDayClicked] = useState(null);
+
+    console.log(habitHistory);
 
     useEffect(() => {
         const config = {
@@ -26,6 +32,13 @@ export default function History() {
             )
             .then((res) => {
                 setHabitHistory(res.data);
+                console.log(res.data);
+            })
+            .catch((err) => {
+                if (err.response.data.message === "Token inválido!") {
+                    alert("Você não está logado!");
+                    history.push("/");
+                }
             });
     }, []);
 
@@ -46,6 +59,17 @@ export default function History() {
         return "item";
     }
 
+    function clickDay(value) {
+        const day = habitHistory.find(
+            (habit) => habit.day === dayjs(value).format("DD/MM/YYYY")
+        );
+        if (dayClicked !== day && day !== undefined) {
+            setDayClicked(day);
+        } else {
+            setDayClicked(null);
+        }
+    }
+
     return (
         <>
             <Header />
@@ -56,12 +80,18 @@ export default function History() {
                         tileClassName="blue"
                         className="calendar"
                         calendarType="US"
-                        tileClassName={({ activeStartDate, date, view }) =>
-                            returnClassName(date)
-                        }
+                        tileClassName={({ activeStartDate, date, view }) => {
+                            return returnClassName(date);
+                        }}
                         locale="pt-BR"
+                        onChange={(value, event) => clickDay(value)}
                     />
                 </CalendarContainer>
+                {dayClicked !== null ? (
+                    <HistoryDetails dayClicked={dayClicked} />
+                ) : (
+                    ""
+                )}
             </main>
             <Footer />
         </>
