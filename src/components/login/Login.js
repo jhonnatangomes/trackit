@@ -14,35 +14,22 @@ export default function Login({ setLogin }) {
     useEffect(() => {
         if (localStorage.login) {
             setLogin(JSON.parse(localStorage.login));
-            setDisabled(true);
-            axios
-                .post(
-                    "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
-                    JSON.parse(localStorage.login)
-                )
-                .then((res) => {
-                    setLogin(res.data);
-                    setDisabled(false);
-                    history.push("/hoje");
-                });
-        } else {
-            setLogin({
-                email: "",
-                password: "",
-            });
+            enter(JSON.parse(localStorage.login));
         }
     }, []);
 
-    function enter() {
+    function enter(loginInfo) {
         setDisabled(true);
         axios
             .post(
                 "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
-                login
+                loginInfo
             )
             .then((res) => {
                 setLogin(res.data);
-                localStorage.setItem("login", JSON.stringify(login));
+                if (!localStorage.length) {
+                    localStorage.setItem("login", JSON.stringify(login));
+                }
                 setDisabled(false);
                 history.push("/hoje");
             })
@@ -60,9 +47,11 @@ export default function Login({ setLogin }) {
                         alert("Digite um email válido!");
                         break;
                     case '"email" is not allowed to be empty':
+                    case '"email" is required':
                         alert("O e-mail não pode estar vazio!");
                         break;
                     case '"password" is not allowed to be empty':
+                    case '"password" is required':
                         alert("A senha não pode estar vazia!");
                         break;
                     default:
@@ -95,7 +84,7 @@ export default function Login({ setLogin }) {
                 }
                 disabled={disabled}
             />
-            <Button onClick={enter} disabled={disabled}>
+            <Button onClick={() => enter(login)} disabled={disabled}>
                 {disabled ? (
                     <Loader
                         type="ThreeDots"

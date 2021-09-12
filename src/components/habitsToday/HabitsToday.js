@@ -6,21 +6,14 @@ import { useEffect, useContext, useState } from "react";
 import LoginContext from "../../contexts/LoginContext";
 import axios from "axios";
 import { useHistory } from "react-router";
+import dayjs from "dayjs";
 
 export default function HabitsToday({ progress, setProgress }) {
-    const date = new Date();
-    const weekdays = [
-        "Domingo",
-        "Segunda",
-        "Terça",
-        "Quarta",
-        "Quinta",
-        "Sexta",
-        "Sábado",
-    ];
     const [habits, setHabits] = useState([]);
     const login = useContext(LoginContext);
     const history = useHistory();
+    require("dayjs/locale/pt-br");
+    dayjs.locale("pt-br");
 
     useEffect(() => {
         const config = {
@@ -58,9 +51,8 @@ export default function HabitsToday({ progress, setProgress }) {
             <Header />
             <main>
                 <Day>
-                    {weekdays[date.getDay()]},{" "}
-                    {String(date.getDate()).padStart(2, "0")}/
-                    {String(date.getMonth() + 1).padStart(2, "0")}
+                    {dayjs().format("dddd")}, {dayjs().format("DD")}/
+                    {dayjs().format("MM")}
                 </Day>
                 <PercentageDoneHabits habits={habits}>
                     {progress > 0

@@ -22,8 +22,8 @@ export default function HistoryDetails({ dayClicked }) {
                 <Habit>
                     <ConcludedTitle>Concluídos</ConcludedTitle>
                     <HabitsList>
-                        {doneHabits.map((habit) => (
-                            <p>{habit.name}</p>
+                        {doneHabits.map((habit, i) => (
+                            <p key={i}>{habit.name}</p>
                         ))}
                     </HabitsList>
                 </Habit>
@@ -34,8 +34,8 @@ export default function HistoryDetails({ dayClicked }) {
                 <Habit>
                     <UnconcludedTitle>Não concluídos</UnconcludedTitle>
                     <HabitsList>
-                        {undoneHabits.map((habit) => (
-                            <p>{habit.name}</p>
+                        {undoneHabits.map((habit, i) => (
+                            <p key={i}>{habit.name}</p>
                         ))}
                     </HabitsList>
                 </Habit>

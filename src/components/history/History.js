@@ -16,8 +16,6 @@ export default function History() {
     const [habitHistory, setHabitHistory] = useState([]);
     const [dayClicked, setDayClicked] = useState(null);
 
-    console.log(habitHistory);
-
     useEffect(() => {
         const config = {
             headers: {
@@ -32,7 +30,6 @@ export default function History() {
             )
             .then((res) => {
                 setHabitHistory(res.data);
-                console.log(res.data);
             })
             .catch((err) => {
                 if (err.response.data.message === "Token inválido!") {
@@ -77,7 +74,6 @@ export default function History() {
                 <Title>Histórico</Title>
                 <CalendarContainer>
                     <Calendar
-                        tileClassName="blue"
                         className="calendar"
                         calendarType="US"
                         tileClassName={({ activeStartDate, date, view }) => {

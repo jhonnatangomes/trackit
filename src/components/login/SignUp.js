@@ -7,12 +7,7 @@ import axios from "axios";
 
 export default function SignUp() {
     const [disabled, setDisabled] = useState(false);
-    const [login, setLogin] = useState({
-        name: "",
-        email: "",
-        password: "",
-        image: "",
-    });
+    const [login, setLogin] = useState({});
     const history = useHistory();
 
     function treatError(error) {
@@ -20,15 +15,19 @@ export default function SignUp() {
             error.details.forEach((detail) => {
                 switch (detail) {
                     case '"name" is not allowed to be empty':
+                    case '"name" is required':
                         alert("O nome não pode estar vazio!");
                         break;
                     case '"email" is not allowed to be empty':
+                    case '"email" is required':
                         alert("O e-mail não pode estar vazio!");
                         break;
                     case '"image" is not allowed to be empty':
+                    case '"image" is required':
                         alert("A imagem não pode estar vazia!");
                         break;
                     case '"password" is not allowed to be empty':
+                    case '"password" is required':
                         alert("A senha não pode estar vazia!");
                         break;
                     case '"email" must be a valid email':
@@ -46,20 +45,37 @@ export default function SignUp() {
         }
     }
 
+    function signUp() {
+        setDisabled(true);
+        axios
+            .post(
+                "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
+                login
+            )
+            .then(() => {
+                setDisabled(false);
+                history.push("/");
+            })
+            .catch((err) => {
+                treatError(err.response.data);
+                setDisabled(false);
+            });
+    }
+
     return (
         <LoginPage>
             <img src={logo} alt="" />
             <Input
                 type="text"
                 placeholder="email"
-                value={login.email}
+                value={login.email || ""}
                 onChange={(e) => setLogin({ ...login, email: e.target.value })}
                 disabled={disabled}
             />
             <Input
                 type="text"
                 placeholder="senha"
-                value={login.password}
+                value={login.password || ""}
                 onChange={(e) =>
                     setLogin({ ...login, password: e.target.value })
                 }
@@ -68,36 +84,18 @@ export default function SignUp() {
             <Input
                 type="text"
                 placeholder="nome"
-                value={login.name}
+                value={login.name || ""}
                 onChange={(e) => setLogin({ ...login, name: e.target.value })}
                 disabled={disabled}
             />
             <Input
                 type="text"
                 placeholder="foto"
-                value={login.image}
+                value={login.image || ""}
                 onChange={(e) => setLogin({ ...login, image: e.target.value })}
                 disabled={disabled}
             />
-            <Button
-                onClick={() => {
-                    setDisabled(true);
-                    axios
-                        .post(
-                            "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
-                            login
-                        )
-                        .then(() => {
-                            setDisabled(false);
-                            history.push("/");
-                        })
-                        .catch((err) => {
-                            treatError(err.response.data);
-                            setDisabled(false);
-                        });
-                }}
-                disabled={disabled}
-            >
+            <Button onClick={signUp} disabled={disabled}>
                 {disabled ? (
                     <Loader
                         type="ThreeDots"
