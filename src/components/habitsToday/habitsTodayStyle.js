@@ -53,8 +53,7 @@ const HabitInformation = styled.div`
 
     p:nth-child(3) span {
         color: ${({ habit }) =>
-            habit.currentSequence === habit.highestSequence &&
-            habit.highestSequence !== 0
+            habit.currentSequence === habit.highestSequence && habit.done
                 ? "#8fc549"
                 : "#666666"};
     }
