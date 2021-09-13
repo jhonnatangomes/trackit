@@ -22,60 +22,64 @@ export default function Habit({ habit, habits, setHabits }) {
         };
 
         if (!done) {
-            axios
-                .post(
-                    `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`,
-                    {},
-                    config
-                )
-                .then(() => {
-                    const newHabits = habits.map((e) =>
-                        e.id === habit.id
-                            ? {
-                                  ...e,
-                                  done: true,
-                                  currentSequence: e.currentSequence + 1,
-                                  highestSequence:
-                                      e.highestSequence === e.currentSequence
-                                          ? e.highestSequence + 1
-                                          : e.highestSequence,
-                              }
-                            : e
-                    );
-                    setHabits(newHabits);
-                    const habitsDone = newHabits.filter((e) => e.done);
-                    setProgress(
-                        ((habitsDone.length / habits.length) * 100).toFixed(0)
-                    );
-                });
+            selectHabit("check", config);
         } else {
-            axios
-                .post(
-                    `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`,
-                    {},
-                    config
-                )
-                .then(() => {
-                    const newHabits = habits.map((e) =>
-                        e.id === habit.id
-                            ? {
-                                  ...e,
-                                  done: false,
-                                  currentSequence: e.currentSequence - 1,
-                                  highestSequence:
-                                      e.highestSequence === e.currentSequence
-                                          ? e.highestSequence - 1
-                                          : e.highestSequence,
-                              }
-                            : e
-                    );
-                    setHabits(newHabits);
-                    const habitsDone = newHabits.filter((e) => e.done);
-                    setProgress(
-                        ((habitsDone.length / habits.length) * 100).toFixed(0)
-                    );
-                });
+            selectHabit("uncheck", config);
         }
+    }
+
+    function selectHabit(select, config) {
+        axios
+            .post(
+                `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/${select}`,
+                {},
+                config
+            )
+            .then(() => {
+                const newHabits = updateSelectedHabit(select);
+                setHabits(newHabits);
+                const habitsDone = newHabits.filter((e) => e.done);
+                setProgress(
+                    ((habitsDone.length / habits.length) * 100).toFixed(0)
+                );
+            })
+            .catch((err) => {
+                alert(err.response.data.message);
+            });
+    }
+
+    function updateSelectedHabit(select) {
+        let newHabits;
+        if (select === "check") {
+            newHabits = habits.map((e) =>
+                e.id === habit.id
+                    ? {
+                          ...e,
+                          done: true,
+                          currentSequence: e.currentSequence + 1,
+                          highestSequence:
+                              e.highestSequence === e.currentSequence
+                                  ? e.highestSequence + 1
+                                  : e.highestSequence,
+                      }
+                    : e
+            );
+        } else {
+            newHabits = habits.map((e) =>
+                e.id === habit.id
+                    ? {
+                          ...e,
+                          done: false,
+                          currentSequence: e.currentSequence - 1,
+                          highestSequence:
+                              e.highestSequence === e.currentSequence
+                                  ? e.highestSequence - 1
+                                  : e.highestSequence,
+                      }
+                    : e
+            );
+        }
+        return newHabits;
     }
 
     return (
