@@ -51,8 +51,8 @@ export default function HabitsToday({ progress, setProgress }) {
             <Header />
             <main>
                 <Day>
-                    {dayjs().format("dddd")}, {dayjs().format("DD")}/
-                    {dayjs().format("MM")}
+                    {dayjs().format("dddd").replace("-feira", "")},{" "}
+                    {dayjs().format("DD")}/{dayjs().format("MM")}
                 </Day>
                 <PercentageDoneHabits habits={habits}>
                     {progress > 0
